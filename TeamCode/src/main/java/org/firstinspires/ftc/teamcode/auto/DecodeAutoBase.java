@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.Launcher;
 import org.firstinspires.ftc.teamcode.subsystems.Load;
-import org.firstinspires.ftc.teamcode.subsystems.Turret;
 
 @Autonomous(name = "Base Auto", group = "ITD")
 public class DecodeAutoBase extends LinearOpMode {

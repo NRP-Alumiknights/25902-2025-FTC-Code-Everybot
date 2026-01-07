@@ -1,3 +1,4 @@
+
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -7,12 +8,12 @@ import org.firstinspires.ftc.teamcode.hardware.Robot;
  * Generic subsystem template that only uses hardware inside Robot.java.
  * Copy → rename → customize.
  */
-public class Turret {
+public class Lift {
 
     protected final Robot robot;
     protected final Telemetry telemetry;
 
-    public Turret(Robot robot, Telemetry telemetry) {
+    public Lift(Robot robot, Telemetry telemetry) {
         this.robot = robot;
         this.telemetry = telemetry;
 
@@ -26,19 +27,19 @@ public class Turret {
     // =======================================================
 
     /** Example—replace with real behavior */
-    public void rotateTurret(double power) {
+    public void move(double power) {
         // Example: using a motor
-        // robot.launcher.setPower(power);
+         robot.lift.setPower(power);
 
         // Or a CRServo
-         robot.turret.setPower(power);
+        // robot.intakeL.setPower(power);
         // robot.intakeR.setPower(power);
     }
 
     /** Stop everything related to this subsystem */
     public void stop() {
-        // robot.launcher.setPower(0);
-         robot.turret.setPower(0);
+         robot.lift.setPower(0);
+        // robot.intakeL.setPower(0);
         // robot.intakeR.setPower(0);
     }
 

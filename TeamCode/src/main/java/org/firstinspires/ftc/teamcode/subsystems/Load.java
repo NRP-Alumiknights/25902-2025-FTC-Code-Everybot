@@ -16,9 +16,7 @@ public class Load {
         this.robot = robot;
         this.telemetry = telemetry;
 
-        // You may configure robot hardware for your subsystem here:
-        // robot.launcher.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        // robot.intakeL.setDirection(CRServo.Direction.FORWARD);
+
     }
 
     // =======================================================
@@ -26,32 +24,36 @@ public class Load {
     // =======================================================
 
     /** Example—replace with real behavior */
-    public void LoadBot(double power) {
+    public void load(double power) {
         // Example: using a motor
-        // robot.launcher.setPower(power);
+         robot.intake.setPower(power);
 
         // Or a CRServo
-        robot.intakeL.setPower(-power/2.0);
-        robot.intakeR.setPower(power);
-    }
-    public void LoadTurret(double power) {
-        robot.loader.setPower(-power);
-        robot.loader2.setPower(-power);
-        robot.loader3.setPower(-power);
+        // robot.intakeL.setPower(power);
+        // robot.intakeR.setPower(power);
     }
 
     /** Stop everything related to this subsystem */
-    public void stopIntake() {
-        // robot.launcher.setPower(0);
-        robot.intakeL.setPower(0);
-        robot.intakeR.setPower(0);
-    }
-    public void stopLoader(){
-        robot.loader.setPower(0);
-        robot.loader2.setPower(0);
-        robot.loader3.setPower(0);
+    public void stop() {
+         robot.intake.setPower(0);
+        // robot.intakeL.setPower(0);
+        // robot.intakeR.setPower(0);
     }
 
+    // =======================================================
+    //                HELPER FUNCTIONS
+    // =======================================================
 
+    /** Example mode switcher */
+    public void runWithoutEncoder() {
+        // robot.launcher.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
+
+    /** Optional telemetry */
+    public void log() {
+        // telemetry.addData("LauncherRPM", currentRPM);
+        // telemetry.addData("IntakePower", robot.intakeL.getPower());
+    }
+}
+
 

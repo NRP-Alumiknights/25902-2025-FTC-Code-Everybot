@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.Launcher;
+import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Load;
-import org.firstinspires.ftc.teamcode.subsystems.Turret;
 
 @TeleOp(name = "TeleOp25", group = "ITD")
 public class TeleOp25 extends LinearOpMode {
@@ -16,7 +16,8 @@ public class TeleOp25 extends LinearOpMode {
     Drive drive;
     Launcher launcher;
     Load loader;
-    Turret turret;
+
+    Lift lift;
 
     @Override
     public void runOpMode() {
@@ -26,12 +27,10 @@ public class TeleOp25 extends LinearOpMode {
         drive = new Drive(robot, telemetry);
         launcher = new Launcher(robot, telemetry);
         loader = new Load(robot, telemetry);
-        turret = new Turret(robot, telemetry);
+        lift = new Lift(robot, telemetry);
 
 
-        int rpm = 3000;
-        boolean lastUp = false;
-        boolean lastDown = false;
+
 
         waitForStart();
 
@@ -45,64 +44,32 @@ public class TeleOp25 extends LinearOpMode {
                     1.0
             );
 
-            // 2. RPM adjustment with edge detection
-            boolean up = gamepad2.dpad_up;
-            boolean down = gamepad2.dpad_down;
 
-            if (up && !lastUp) {        // pressed this loop
-                rpm += 500;
-            }
-            if (down && !lastDown) {
-                rpm -= 500;
-            }
 
-            // store previous state
-            lastUp = up;
-            lastDown = down;
-
-            // clamp
-            if (rpm < 0) rpm = 0;
-            if (rpm > 6000) rpm = 6000;
-
-            // 3. Apply RPM + maintain speed
-            launcher.setRPM(rpm);
-            launcher.update();   // << REQUIRED
-
-            telemetry.addData("RPM Target", rpm);
-            telemetry.addData("Ready", launcher.readyToFire());
-
-            //4. Intake systems
-            if (gamepad2.left_trigger > 0.1)
-            {
-                loader.LoadBot(1);
-            }
-
-            //5. Load Systems
-            if (gamepad2.right_trigger > 0.1)
-            {
-                loader.LoadTurret(1);
-            }
-            if (gamepad2.right_trigger < 0.1 && gamepad2.left_trigger < 0.1 && !gamepad2.x)
-            {
-              loader.stopLoader();
-              loader.stopIntake();
-            }
-
-            //6. Flush system.
+           //Launch
             if (gamepad2.x)
             {
-                loader.LoadBot(-1);
-                loader.LoadTurret(-1);
-            }
-            // 7. Turret control
-            if (Math.abs(gamepad2.left_stick_x) > 0.1)
-            {
-               turret.rotateTurret(gamepad2.left_stick_x);
+                launcher.launch(1);
             }
             else
             {
-                turret.stop();
+                launcher.stop();
             }
+            //4. Intake systems
+            if (gamepad2.left_trigger > 0.1)
+            {
+                loader.load(1);
+            }
+            //5. Lifter
+            if (gamepad1.dpad_up)
+            {
+               lift.move(1);
+            }
+            if (gamepad1.dpad_down)
+            {
+                lift.move(-1);
+            }
+
             telemetry.update();
 
         }

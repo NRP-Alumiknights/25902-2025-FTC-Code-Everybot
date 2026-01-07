@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 public class Robot {
-    public DcMotor rightFront, leftFront, rightBack, leftBack, launcher;
-    public CRServo intakeL, intakeR, loader, loader2, loader3, turret;
+    public DcMotor rightFront, leftFront, rightBack, leftBack, launcher1, launcher2, intake, lift;
+
     public IMU imu;
 
     public HardwareMap hw;
@@ -28,16 +28,13 @@ public class Robot {
         leftFront  = initMotor("LeftFront", false);
         rightBack  = initMotor("RightBack", true);
         leftBack   = initMotor("LeftBack", false);
+        launcher1 = initMotor("Launcher1", true);
+        launcher2 = initMotor("Launcher2", true);
+        intake = initMotor("intake", true);
+        lift = initMotor("lift", true);
 
-        launcher = initMotor("Launcher", true);
 
-        // CRServos
-        intakeL = hw.crservo.get("IntakeL");
-        intakeR = hw.crservo.get("IntakeR");
-        loader  = hw.crservo.get("Loader");
-        loader2 = hw.crservo.get("LoaderWheel");
-        loader3 = hw.crservo.get(("Loader3"));
-        turret = hw.crservo.get(("Turret"));
+
 
         // IMU
         imu = hw.get(IMU.class, "imu");
@@ -64,7 +61,8 @@ public class Robot {
         if (rightFront!= null) rightFront.setZeroPowerBehavior(behavior);
         if (leftBack  != null) leftBack.setZeroPowerBehavior(behavior);
         if (rightBack != null) rightBack.setZeroPowerBehavior(behavior);
-        if (launcher != null) launcher.setZeroPowerBehavior(behavior);
+        if (launcher1 != null) launcher1.setZeroPowerBehavior(behavior);
+        if (launcher2 != null) launcher2.setZeroPowerBehavior(behavior);
     }
 
     public void resetEncoders() {
