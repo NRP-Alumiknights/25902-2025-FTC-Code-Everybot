@@ -119,7 +119,6 @@ public class DecodeAutoBase extends LinearOpMode {
         drive.stop();
         launcher.stop();
         loader.stop();
-
-
+sleep(1);
     }
 }

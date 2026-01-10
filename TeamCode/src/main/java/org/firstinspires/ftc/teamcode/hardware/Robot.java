@@ -70,5 +70,11 @@ public class Robot {
         leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        // Assume flipper is at load position
+        launcher1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        launcher2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        launcher1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        launcher2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 }
