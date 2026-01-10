@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.Launcher;
+import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Load;
 
 @Autonomous(name = "Base Auto", group = "ITD")
@@ -16,8 +17,8 @@ public class DecodeAutoBase extends LinearOpMode {
     Drive drive;
     Launcher launcher;
     Load loader;
-    Turret turret;
 
+    Lift lift;
     private final ElapsedTime timer = new ElapsedTime();
 
     @Override
@@ -30,7 +31,7 @@ public class DecodeAutoBase extends LinearOpMode {
         drive = new Drive(robot, telemetry);
         launcher = new Launcher(robot, telemetry);
         loader = new Load(robot, telemetry);
-        turret = new Turret(robot, telemetry);
+        lift = new Lift(robot, telemetry);
 
         telemetry.addLine("Auto Initialized");
         telemetry.update();
@@ -44,7 +45,7 @@ public class DecodeAutoBase extends LinearOpMode {
         // -------------------------------
 
         // Example: Spin up & shoot once
-        shootAtRPM(3000);
+        launch();
 
         // Example: Drive forward
         driveForward(0.5, 1000);
@@ -52,10 +53,7 @@ public class DecodeAutoBase extends LinearOpMode {
         // Example: Strafe
         strafeRight(0.5, 600);
 
-        // Example: Turn turret to neutral
-        turret.rotateTurret(0.3);
-        sleep(300);
-        turret.stop();
+
 
         // Add additional steps here…
         // pick up pixels, score, park, etc.
@@ -106,22 +104,9 @@ public class DecodeAutoBase extends LinearOpMode {
         turnRight(-power, ms);
     }
 
-    /** Fire once at a specific RPM */
-    private void shootAtRPM(int rpm) {
-        launcher.setRPM(rpm);
+    private void launch() {
+        launcher.launch(1);
 
-        // spin up for 1.5 seconds
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.5) {
-            launcher.update();
-            telemetry.addData("Spinning Up", launcher.readyToFire());
-            telemetry.update();
-        }
-
-        // Fire loader if needed
-        // loader.LoadTurret(1);
-        // sleep(300);
-        // loader.stopLoader();
 
         launcher.stop();
     }
@@ -133,8 +118,8 @@ public class DecodeAutoBase extends LinearOpMode {
     private void stopAll() {
         drive.stop();
         launcher.stop();
-        loader.stopLoader();
-        loader.stopIntake();
-        turret.stop();
+        loader.stop();
+
+
     }
 }

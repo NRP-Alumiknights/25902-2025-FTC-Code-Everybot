@@ -51,14 +51,20 @@ public class TeleOp25 extends LinearOpMode {
             {
                 launcher.launch(1);
             }
-            else
+            else if (gamepad2.a)
             {
+                launcher.launch(-0.1);
+            }
+            else {
                 launcher.stop();
             }
             //4. Intake systems
             if (gamepad2.left_trigger > 0.1)
             {
                 loader.load(1);
+            }
+            else {
+                loader.stop();
             }
             //5. Lifter
             if (gamepad1.dpad_up)

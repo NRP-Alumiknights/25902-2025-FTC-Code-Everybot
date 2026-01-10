@@ -26,8 +26,8 @@ public class Launcher {
     // =======================================================
 
     public void launch(double power) {
-         robot.launcher2.setPower(power);
-         robot.launcher1.setPower(-power);
+         robot.launcher2.setPower(-power);
+         robot.launcher1.setPower(power);
     }
 
     /** Stop everything related to this subsystem */
